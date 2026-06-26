@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday Eve, My Love</title>
+  <title>Happy Birthday Eve</title>
   <style>
     :root {
       --pink: #ff5ca8;
@@ -96,8 +96,17 @@
     .subtext {
       font-size: 16px;
       color: #7a4d65;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .tease-line {
+      font-size: 15px;
+      color: #a24b73;
+      font-weight: 700;
       margin-bottom: 18px;
       line-height: 1.6;
+      font-style: italic;
     }
 
     .countdown {
@@ -254,8 +263,9 @@
 
   <div class="container">
     <div class="badge">🎂 Birthday Eve Surprise</div>
-    <h1>Happy Birthday Eve, my love 💖</h1>
+    <h1>Happy Birthday Eve 💖</h1>
     <p class="subtext">Only a little while left until the day that belongs to you. I made this just to say I’m already counting down to celebrate you.</p>
+    <p class="tease-line">Only one day till you become a certified grandma 😌✨<br>better start acting like one already hehe</p>
 
     <div class="countdown" id="countdown">
       <div class="time-box"><strong id="days">00</strong><span>Days</span></div>
@@ -283,7 +293,7 @@
         <p>My beautiful girl,</p>
         <p>Tomorrow is your day, and I just wanted to remind you how much you mean to me. Your smile, your warmth, your laugh, and the way you make everything feel softer — all of it is so special to me.</p>
         <p>I hope tomorrow feels full of joy, love, and all the little things that make you happiest. I’m so proud of you and so lucky to have you in my life.</p>
-        <p>Happy birthday eve, my love. 💕</p>
+        <p>Happy birthday eve, beautiful. 💕</p>
       </div>
 
       <button class="btn btn-secondary" id="giftBtn">✨ Reveal a Tiny Gift</button>
@@ -293,7 +303,7 @@
       </div>
 
       <button class="btn btn-music" id="musicBtn">🎵 Play Soft Background Music</button>
-      <div class="music-note">This starts the song from 1:55 to 2:25 at a very slow pace.</div>
+      <div class="music-note">This starts the song from 1:55 to 2:25 in a softer, deeper feel while keeping the original speed.</div>
       <div id="musicPlayerWrap" style="display:none; position:fixed; right:12px; bottom:12px; width:1px; height:1px; overflow:hidden;">
         <div id="musicPlayer"></div>
       </div>
@@ -302,8 +312,7 @@
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    const target = new Date();
-    target.setHours(24, 0, 0, 0);
+    const target = new Date(2026, 5, 28, 12, 0, 0);
 
     function updateCountdown() {
       const now = new Date();
@@ -327,8 +336,8 @@
       document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
     }
 
-    setInterval(updateCountdown, 1000);
     updateCountdown();
+    setInterval(updateCountdown, 1000);
 
     document.getElementById('openLetterBtn').addEventListener('click', () => {
       document.getElementById('letterBox').classList.toggle('show');
@@ -390,8 +399,8 @@
         },
         events: {
           onReady: (event) => {
-            event.target.setVolume(40);
-            event.target.setPlaybackRate(0.55);
+            event.target.setVolume(22);
+            event.target.setPlaybackRate(1);
             event.target.seekTo(115, true);
             event.target.playVideo();
             musicTimer = setInterval(() => {
