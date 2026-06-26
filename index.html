@@ -326,16 +326,17 @@
       border-radius: 50% 50% 40% 40%;
       top: 10px; left: 39px;
       box-shadow: 0 4px 12px rgba(255,92,168,0.24);
+      --petal-rotation: 0deg;
       animation: petalSway 2.4s ease-in-out infinite;
       transform-origin: center bottom;
     }
-    .petal:nth-child(2) { transform: rotate(45deg); top: 22px; left: 20px; animation-delay: 0.1s; }
-    .petal:nth-child(3) { transform: rotate(90deg); top: 38px; left: 10px; animation-delay: 0.2s; }
-    .petal:nth-child(4) { transform: rotate(135deg); top: 56px; left: 20px; animation-delay: 0.3s; }
-    .petal:nth-child(5) { transform: rotate(180deg); top: 64px; left: 39px; animation-delay: 0.4s; }
-    .petal:nth-child(6) { transform: rotate(225deg); top: 56px; left: 58px; animation-delay: 0.5s; }
-    .petal:nth-child(7) { transform: rotate(270deg); top: 38px; left: 68px; animation-delay: 0.6s; }
-    .petal:nth-child(8) { transform: rotate(315deg); top: 22px; left: 58px; animation-delay: 0.7s; }
+    .petal:nth-child(2) { --petal-rotation: 45deg; top: 22px; left: 20px; animation-delay: 0.1s; }
+    .petal:nth-child(3) { --petal-rotation: 90deg; top: 38px; left: 10px; animation-delay: 0.2s; }
+    .petal:nth-child(4) { --petal-rotation: 135deg; top: 56px; left: 20px; animation-delay: 0.3s; }
+    .petal:nth-child(5) { --petal-rotation: 180deg; top: 64px; left: 39px; animation-delay: 0.4s; }
+    .petal:nth-child(6) { --petal-rotation: 225deg; top: 56px; left: 58px; animation-delay: 0.5s; }
+    .petal:nth-child(7) { --petal-rotation: 270deg; top: 38px; left: 68px; animation-delay: 0.6s; }
+    .petal:nth-child(8) { --petal-rotation: 315deg; top: 22px; left: 58px; animation-delay: 0.7s; }
     .center {
       position: absolute;
       width: 24px; height: 24px;
@@ -351,21 +352,21 @@
       background: linear-gradient(180deg, #3ab54a, #1d6b2e);
       bottom: -16px; left: 52px;
       border-radius: 999px;
-      animation: stem sway 2.2s ease-in-out infinite;
+      animation: sway 2.2s ease-in-out infinite;
     }
     @keyframes floaty {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-8px) rotate(2deg); }
     }
     @keyframes petalSway {
-      0%, 100% { transform: rotate(var(--petal-rotation, 0deg)) translateY(0); }
-      50% { transform: rotate(calc(var(--petal-rotation, 0deg) + 8deg)) translateY(-3px); }
+      0%, 100% { transform: rotate(var(--petal-rotation)) translateY(0); }
+      50% { transform: rotate(calc(var(--petal-rotation) + 8deg)) translateY(-3px); }
     }
     @keyframes pulseGlow {
       0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255,207,64,0.6); }
       50% { transform: scale(1.14); box-shadow: 0 0 18px rgba(255,207,64,0.95); }
     }
-    @keyframes stem {
+    @keyframes sway {
       0%, 100% { transform: skewX(0deg); }
       50% { transform: skewX(1.5deg); }
     }
@@ -439,7 +440,7 @@
       <button class="btn btn-primary" id="openLetterBtn">💌 Open My Tiny Birthday Note</button>
       <div class="message" id="letterBox">
         <p>My beautiful girl,</p>
-        <p>Tomorrow is your day and I just wanted to remind you how much you mean to me( a lot ) Your smile, your warmth, your laugh, and the way you make everything feel softer and even when u roast me ( u are so bad )  all of it is so special to me( 10000% agree) </p>
+        Tomorrow is your day and I just wanted to remind you how much you mean to me( a lot ) Your smile, your warmth, your laugh, and the way you make everything feel softer and even when u roast me ( u are so bad )  all of it is so special to me( 10000% agree) </p>
         <p>I hope tomorrow feels full of joy, love, and all the little things that make you happiest. I am so proud of you and so lucky to have you in my life</p>
         <p>Happy birthday eve my everything . 💕</p>
       </div>
@@ -469,7 +470,7 @@
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    const target = new Date(2026, 5, 28, 12, 0, 0);
+    const target = new Date(2026, 5, 28, 0, 0, 0);
 
     function updateCountdown() {
       const now = new Date();
@@ -482,8 +483,9 @@
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const totalHours = Math.floor(diff / (1000 * 60 * 60));
+      const days = Math.floor(totalHours / 24);
+      const hours = totalHours % 24;
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
@@ -494,7 +496,7 @@
 
       const remainingText = document.getElementById('remainingText');
       if (remainingText) {
-        remainingText.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s left until your birthday`;
+        remainingText.textContent = `${totalHours}h ${minutes}m ${seconds}s left until 28 June`;
       }
     }
 
