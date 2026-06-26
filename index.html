@@ -188,9 +188,17 @@
       border: 1px solid rgba(255,92,168,0.18);
       box-shadow: 0 12px 28px rgba(0,0,0,0.08);
       line-height: 1.7;
+      opacity: 0;
+      transform: translateY(10px) scale(0.97);
+      transition: all 0.3s ease;
     }
 
-    .message.show, .gift-box.show { display: block; animation: pop 0.35s ease; }
+    .message.show, .gift-box.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      animation: pop 0.35s ease;
+    }
     @keyframes pop {
       0% { transform: scale(0.94); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
@@ -238,17 +246,23 @@
       50% { transform: translateY(-8px); }
     }
 
-    .hearts, .stars {
+    .hearts, .stars, .petals-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       overflow: hidden;
       z-index: 1;
     }
-    .heart, .star {
+    .heart, .star, .petal-float {
       position: absolute;
       animation: fall linear infinite;
       opacity: 0.9;
+    }
+    .petal-float {
+      font-size: 16px;
+      color: #ff7eb6;
+      animation-duration: 8s;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
     }
     .heart { font-size: 18px; animation-duration: 7s; }
     .star { font-size: 12px; color: white; animation-duration: 8s; }
@@ -267,6 +281,7 @@
 <body>
   <div class="hearts" id="hearts"></div>
   <div class="stars" id="stars"></div>
+  <div class="petals-layer" id="petalsLayer"></div>
 
   <div class="container">
     <div class="badge">🎂 Birthday Eve Surprise</div>
@@ -358,6 +373,7 @@
     function createFloatingItems() {
       const hearts = document.getElementById('hearts');
       const stars = document.getElementById('stars');
+      const petalsLayer = document.getElementById('petalsLayer');
 
       for (let i = 0; i < 18; i++) {
         const heart = document.createElement('div');
@@ -377,6 +393,16 @@
         star.style.top = `${-8 - Math.random() * 10}%`;
         star.style.animationDelay = `${Math.random() * 4}s`;
         stars.appendChild(star);
+      }
+
+      for (let i = 0; i < 10; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal-float';
+        petal.textContent = ['❀', '✿', '❋'][i % 3];
+        petal.style.left = `${Math.random() * 100}%`;
+        petal.style.top = `${-12 - Math.random() * 15}%`;
+        petal.style.animationDelay = `${Math.random() * 3}s`;
+        petalsLayer.appendChild(petal);
       }
     }
 
